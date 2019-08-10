@@ -16,7 +16,7 @@ app.get("/palettes", async (_, res) => {
   res.send(JSON.stringify(palettes));
 });
 
-app.post('/post-palettes', async (_, res) => {
+app.post('/post-palettes', async (req, res) => {
   await knex('palettes').update(req.params.palettes);
 });
 
