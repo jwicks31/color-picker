@@ -7,33 +7,39 @@ const RED = 'Red';
 const GREEN = 'Green';
 const BLUE = 'Blue';
 
-const RGBForm = ({ onSubmit = () => {}, id = 0 }) => {
-  const [red, setRed] = useState(0);
-  const [green, setGreen] = useState(0);
-  const [blue, setBlue] = useState(0);
+const RGBForm = ({
+  onSubmit = () => {},
+  id = 0,
+  initRed = 0,
+  initGreen = 0,
+  initBlue = 0
+}) => {
+  const [red, setRed] = useState(initRed);
+  const [green, setGreen] = useState(initGreen);
+  const [blue, setBlue] = useState(initBlue);
 
-  const _handleChange = e => {
+  const handleChange = e => {
     const { target } = e;
     const { name, value } = target;
-    if (name === RED && value <= 255) setRed(value)
+    if (name === RED && value <= 255) setRed(value);
     if (name === GREEN && value <= 255) setGreen(value);
     if (name === BLUE && value <= 255) setBlue(value);
   };
 
-  const _handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(id, `rgb(${red}, ${green}, ${blue})`);
+    onSubmit(id, red, green, blue);
   };
-
+  const currentColor = `rgb(${red}, ${green}, ${blue})`;
   return (
-    <form className="color-form" onSubmit={_handleSubmit}>
+    <form className="color-form" onSubmit={handleSubmit}>
       <label htmlFor={RED}>
         Red:
         <input
           className="color"
           value={red}
           name={RED}
-          onChange={_handleChange}
+          onChange={handleChange}
           type="number"
           required
         />
@@ -44,7 +50,7 @@ const RGBForm = ({ onSubmit = () => {}, id = 0 }) => {
           className="color"
           value={green}
           name={GREEN}
-          onChange={_handleChange}
+          onChange={handleChange}
           type="number"
           required
         />
@@ -55,13 +61,13 @@ const RGBForm = ({ onSubmit = () => {}, id = 0 }) => {
           className="color"
           value={blue}
           name={BLUE}
-          onChange={_handleChange}
+          onChange={handleChange}
           type="number"
           required
         />
       </label>
       <input type="submit" value="Submit" />
-      <ColorDisplay color={`rgb(${red}, ${green}, ${blue})`} />
+      <ColorDisplay color={currentColor} />
     </form>
   );
 };

@@ -9,55 +9,74 @@ const RED = 'Red';
 const GREEN = 'Green';
 const BLUE = 'Blue';
 
-const initialState = [{
-  id: 0,
-  color: 'rgb(0,0,0)'
-},
-{
-  id: 1,
-  color: 'rgb(0,0,0)'
-},
-{
-  id: 2,
-  color: 'rgb(0,0,0)'
-},
-{
-  id: 3,
-  color: 'rgb(0,0,0)'
-},
-{
-  id: 4,
-  color: 'rgb(0,0,0)'
-}];
+const initialState = [
+  {
+    id: 0,
+    red: 0,
+    green: 0,
+    blue: 0
+  },
+  {
+    id: 1,
+    red: 0,
+    green: 0,
+    blue: 0
+  },
+  {
+    id: 2,
+    red: 0,
+    green: 0,
+    blue: 0
+  },
+  {
+    id: 3,
+    red: 0,
+    green: 0,
+    blue: 0
+  },
+  {
+    id: 4,
+    red: 0,
+    green: 0,
+    blue: 0
+  }
+];
 
-const paletteReducer = (state = initialState, { id, rgbColor }) => {
+const paletteReducer = (state = initialState, { id, red, green, blue }) => {
   return state.map(x => {
-    if (x.id === id) return { ...x, color: rgbColor };
+    if (x.id === id) return { ...x, red, green, blue };
     return x;
   });
-}; 
+};
 
-const PaletteForm = ({ onSubmit = () => {} }) => {
-  const [palette, setPaletteColor] = useReducer(paletteReducer, initialState);
+const PaletteForm = ({ onSubmit = () => {}, initPalette = initialState }) => {
+  const [palette, setPaletteColor] = useReducer(paletteReducer, initPalette);
 
-  const _onSubmitColor = (id, rgbColor) => {
-    setPaletteColor({ id, rgbColor })
+  const onSubmitColor = (id, red, green, blue) => {
+    setPaletteColor({ id, red, green, blue });
   };
 
-  const _onSubmitPalette = () => {
+  const onSubmitPalette = () => {
     onSubmit(palette);
-  }
+  };
 
   return (
     <div className="form-container">
       <div className="rgb-container">
-        <RGBForm id={0} onSubmit={_onSubmitColor} />
-        <RGBForm id={1} onSubmit={_onSubmitColor} />
-        <RGBForm id={2} onSubmit={_onSubmitColor} />
-        <RGBForm id={3} onSubmit={_onSubmitColor} />
-        <RGBForm id={4} onSubmit={_onSubmitColor} />
+        {palette.map(({ red, green, blue }, i) => {
+          return (
+            <RGBForm
+              initRed={red}
+              initGreen={green}
+              initBlue={blue}
+              id={i}
+              key={i}
+              onSubmit={onSubmitColor}
+            />
+          );
+        })}
       </div>
-      <button onClick={_onSubmitPalette}>Submit Palette</button>
+      <button onClick={onSubmitPalette}>Submit Palette</button>
     </div>
   );
 };
