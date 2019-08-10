@@ -1,0 +1,17 @@
+.form-container {
+  max-width: 50vw;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .welcome {
+    margin-top: 10rem;
+    font-size: 2.5rem;
+  }
+
+  .rgb-container {
+    display: flex;
+    justify-content: center;
+  }
+}

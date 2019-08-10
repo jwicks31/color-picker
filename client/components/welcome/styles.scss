@@ -1,0 +1,17 @@
+.welcome-container {
+  height: 100vh;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .welcome {
+    margin-top: 10rem;
+    font-size: 2.5rem;
+  }
+
+  .palette {
+    display: flex;
+  }
+}
